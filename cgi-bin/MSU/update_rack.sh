@@ -1,5 +1,9 @@
 #!/bin/bash
 Rack_position_update () {
+    if [ "$4" -eq "1" ]; then
+        echo "Make lift Down First by Doing NFS that Butler"
+        echo "<br>"
+    elif [ "$4" -eq "0" ]; then
         barcode_validation=`sudo /opt/butler_server/erts-9.3.3.8/bin/escript /home/gor/rpc_call.escript gridinfo search_by "[[{'barcode', 'equal', \""$2"\"}], 'key']." | grep -oP '\[\K[^\]]+'`
         echo "<br>"
         echo "Your given barcode coordinate is: $2"
@@ -9,8 +13,11 @@ Rack_position_update () {
             echo "You have type wrong barcode"    
         else
             echo "Updating rack location"
-            sudo /opt/butler_server/erts-9.3.3.8/bin/escript /home/gor/rpc_call.escript rackinfo update_rack_position_with_updates "[<<\""$1"\">>,$3,\""$2"\",null]." 
-        fi
+            sudo /opt/butler_server/erts-9.3.3.8/bin/escript /home/gor/rpc_call.escript mhs_operation_utilities update_rack_position "[<<\"$1\">>,$3,\""$2"\", 'null']." 
+        fi    
+    else
+        echo "Please type correct lifted state "
+    fi
 }
 echo "Content-type: text/html"
 echo ""
@@ -29,12 +36,14 @@ echo "<br>"
 echo "<br>"
 echo "<br>"
 echo "<br>"
+echo "In Lifted_state type 1 if msu is lifted up state else type 0"
 echo "<br>"
   echo "<form method=GET action=\"${SCRIPT}\">"\
        '<table nowrap>'\
           '<tr><td>Rack_ID</TD><TD><input type="number" name="Rack_ID" size=12></td></tr>'\
 		  '<tr><td>Barcode</TD><TD><input type="text" name="Barcode" size=12></td></tr>'\
-		  '<tr><td>Direction</TD><TD><input type=number name="Direction" size=12></td></tr>'
+		  '<tr><td>Direction</TD><TD><input type="number" name="Direction" size=12></td></tr>'\
+		  '<tr><td>Lifted_state</TD><TD><input type="number" name="Lifted_state" size=12></td></tr>'\
            '</tr></table>'
 
   echo '<br><input type="submit" value="SUBMIT">'\
@@ -62,13 +71,17 @@ echo "<br>"
      AA=`echo "$QUERY_STRING" | sed -r 's/([^0-9]*([0-9]*)){5}.*/\2/'`
   
      echo "Rack_ID: " $XX
-     echo "Direction: " $ZZ
      echo '<br>'
 	   echo "Barcode: " $YY
      echo '<br>'
-     Rack_position_update $XX $YY $ZZ
+	   echo "Direction: " $ZZ
+     echo '<br>'
+	   echo "Lifted_state: " $AA
+     echo '<br>'
+     Rack_position_update $XX $YY $ZZ $AA
   fi
 echo '</body>'
 echo '</html>'
 
-exit 
+exit 0
+
