@@ -1,14 +1,26 @@
 #!/bin/bash
-rollcage () {
-    echo "<br>"
-    echo "Rollcage information"
-    sudo -H -u gor bash -c "/usr/lib/cgi-bin/MSU/rollcage_info_internal.sh $1"
-    echo "<br>"
-    echo '<pre>'
-    while read -r line; do
-          echo -e '\n' $line
-    done < /tmp/bhar.txt
-    echo '</pre>'  
+order_sla () {
+    echo "Order SLA: $1"
+    sla=$1
+    echo "<br>" 
+    if [ ! -n $sla ]
+    then
+        echo "Please enter number greater than 82800 (Not allowed to change order_sla below 82800 second i.e. 23 hours)"
+    elif [ "$sla" -lt 82800 ]
+    then
+        echo "Please enter number greater than 82800 (Not allowed to change order_sla below 82800 second i.e. 23 hours)"
+    elif [ "$sla" -ge 82800 ]
+    then
+        echo "<br>"
+        sla_hour=`bc <<< "scale=3; $sla/3600"`
+        echo "Changing order sla to $sla_hour hours "
+        echo "<br>"
+        sudo /opt/butler_server/erts-9.3.3.8/bin/escript /home/gor/rpc_call.escript application set_env "['butler_server','order_sla',$sla]."
+        echo "<br>"
+        echo "OK Done...."
+    else
+        echo "Press enter correct number"
+    fi
 }
 echo "Content-type: text/html"
 echo ""
@@ -16,7 +28,7 @@ echo ""
 echo '<html>'
 echo '<head>'
 echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
-echo '<title>Get rollcage info</title>'
+echo '<title>Change Order SLA</title>'
 echo '</head>'
 echo '<body style="background-color:#B8B8B8">'
 
@@ -26,13 +38,13 @@ echo "<br>"
 echo "<br>"
 echo "<br>"
 echo "<br>"
-echo "Put rollcage id in three digit number (Ex- [if rollcage id is 3, put 003] || [if rollcage is 23, type 023 ])"
 echo "<br>"
+echo "Type the value for order sla in seconds (Value should be greater than or equal to 82800 second (i.e. 23 hours)"
 echo "<br>"
   echo "<form method=GET action=\"${SCRIPT}\">"\
        '<table nowrap>'\
-          '<tr><td>RollcageNo</TD><TD><input type="number" name="RollcageNo" size=12></td></tr>'\
-      '</tr></table>'
+          '<tr><td>ORDER_SLA</TD><TD><input type="number" name="ORDER_SLA" size=12></td></tr>'\
+		  '</tr></table>'
 
   echo '<br><input type="submit" value="SUBMIT">'\
        '<input type="reset" value="Reset"></form>'
@@ -45,6 +57,7 @@ echo "<br>"
              "<br>Check your FORM declaration and be sure to use METHOD=\"GET\".<hr>"
         exit 1
   fi
+
   # If no search arguments, exit gracefully now.
   echo "$QUERY_STRING<br>"
   echo "<br>"
@@ -53,12 +66,12 @@ echo "<br>"
   else
    # No looping this time, just extract the data you are looking for with sed:
      XX=`echo "$QUERY_STRING" | sed -r 's/([^0-9]*([0-9]*)){1}.*/\2/'`
-   
-    echo "Rollcage: " $XX
-    echo '<br>'
+	 
+	 echo "order_sla: " $XX
+     echo '<br>'
      
 
-   rollcage $XX
+   order_sla $XX
      
      
   fi

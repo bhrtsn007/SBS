@@ -56,6 +56,10 @@ echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/specific_order.sh
 
 echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/order_task_details.sh" class="active"><b>Task Details from Order</b></a>'
 
+echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/get_order_sla.sh" class="active"><b>Get Order SLA</b></a>'
+
+echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/change_order_sla.sh" class="active"><b>Change Order SLA</b></a>'
+
 #echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/remove_order.sh" class="active"><b>Remove Order</b></a>'
 
 #echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/add_order.sh" class="active"><b>Add Order</b></a>'

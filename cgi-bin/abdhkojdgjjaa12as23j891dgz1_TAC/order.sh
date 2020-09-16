@@ -76,6 +76,11 @@ echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/change_order_to_c
 
 echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/abandon_order.sh" class="active"><b>Abandonar una orden</b></a>'
 
+echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/get_order_sla.sh" class="active"><b>Get Order SLA</b></a>'
+
+echo '<div class="vertical-menu"></div><a href="/cgi-bin/order/change_order_sla.sh" class="active"><b>Change Order SLA</b></a>'
+
+
 echo '</body>'
 echo '</html>'
 

@@ -63,6 +63,10 @@ echo '<div class="vertical-menu"></div><a href="/cgi-bin/pps/reset_ppsbin.sh" cl
 echo '<div class="vertical-menu"></div><a href="/cgi-bin/pps/pptl_test.sh" class="active"><b>Prueba de PPTL</b></a>'
 #echo '<div class="vertical-menu"></div><a href="/cgi-bin/pps/reset_all_ppsbin.sh" class="active"><b>Reset All PPS Bin On PPS</b></a>'
 
+echo '<div class="vertical-menu"></div><a href="/cgi-bin/pps/ppsbinrec_id.sh" class="active"><b>Specific PPSbinrec</b></a>'
+
+
+
 echo '</body>'
 echo '</html>'
 

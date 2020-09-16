@@ -54,6 +54,10 @@ echo '<div class="vertical-menu"></div><a href="/cgi-bin/MSU/store_position.sh" 
 
 echo  '<div class="vertical-menu"></div><a href="/cgi-bin/MSU/add_rack.sh" class="active"><b>Crear un nuevo Rack</b></a>'
 
+echo  '<div class="vertical-menu"></div><a href="/cgi-bin/MSU/rollcage_data.sh" class="active"><b>Get Rollcage Info</b></a>'
+
+echo  '<div class="vertical-menu"></div><a href="/cgi-bin/MSU/rollcage_clear.sh" class="active"><b>Clean Rollcage</b></a>'
+
 echo '</body>'
 echo '</html>'
 

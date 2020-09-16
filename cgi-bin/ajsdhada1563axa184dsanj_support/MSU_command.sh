@@ -48,6 +48,10 @@ echo '<div class="vertical-menu"></div><a href="/cgi-bin/MSU/update_rack.sh" cla
 
 echo '<div class="vertical-menu"></div><a href="/cgi-bin/MSU/rack_details_from_coordinates.sh" class="active"><b>Rack Details from Coordinates</b></a>'
 
+echo  '<div class="vertical-menu"></div><a href="/cgi-bin/MSU/rollcage_data.sh" class="active"><b>Get Rollcage Info</b></a>'
+
+echo  '<div class="vertical-menu"></div><a href="/cgi-bin/MSU/rollcage_clear.sh" class="active"><b>Clean Rollcage</b></a>'
+
 #echo  '<div class="vertical-menu"></div><a href="/cgi-bin/MSU/add_rack.sh" class="active"><b>Add New Rack</b></a>'
 
 echo '</body>'
